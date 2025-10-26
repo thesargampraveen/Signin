@@ -1,16 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(gradlew.bat app:installDebug:*)",
-      "Bash(./gradlew:*)",
-      "Bash(mv:*)",
       "Bash(keytool:*)",
-      "Bash(npx react-native run-android:*)",
-      "Bash(dir:*)",
-      "Bash(.gradlew.bat:*)",
-      "Bash(cmd:*)",
-      "Bash(npx react-native start:*)",
-      "Bash(npx react-native log-android:*)"
+      "Bash(./gradlew app:installDebug:*)",
+      "Bash(adb uninstall:*)"
     ],
     "deny": [],
     "ask": []
