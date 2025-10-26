@@ -1,12 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import TodoScreen from './TodoScreen'
 
 const Home = () => {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  )
+  return <TodoScreen />
 }
 
 export default Home

@@ -3,7 +3,10 @@
     "allow": [
       "Bash(keytool:*)",
       "Bash(./gradlew app:installDebug:*)",
-      "Bash(adb uninstall:*)"
+      "Bash(adb uninstall:*)",
+      "Bash(npm run android:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm start)"
     ],
     "deny": [],
     "ask": []
