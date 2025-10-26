@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gradlew.bat app:installDebug:*)",
+      "Bash(./gradlew:*)",
+      "Bash(mv:*)",
+      "Bash(keytool:*)",
+      "Bash(npx react-native run-android:*)",
+      "Bash(dir:*)",
+      "Bash(.gradlew.bat:*)",
+      "Bash(cmd:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
