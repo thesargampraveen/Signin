@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 // Configure Google Sign-In
 GoogleSignin.configure({
@@ -91,11 +91,11 @@ const LoginScreen = ({ navigation }) => {
     } catch (error) {
       console.error('Google Sign-In error:', error);
       
-      if (error.code === 'sign_in_cancelled') {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         alert('Sign-in cancelled');
-      } else if (error.code === 'in_progress') {
+      } else if (error.code === statusCodes.IN_PROGRESS) {
         alert('Sign-in already in progress');
-      } else if (error.code === 'play_services_not_available') {
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         alert('Play services not available');
       } else {
         alert('Google Sign-In failed: ' + error.message);

@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 // Configure Google Sign-In
 GoogleSignin.configure({
@@ -77,35 +77,54 @@ const RegisterScreen = ({ navigation }) => {
   // Google Sign-In
   const handleGoogleSignIn = async () => {
     setLoading(true);
-    
+
     try {
+      console.log('Starting Google Sign-In...');
+
       // Check if device supports Google Play services
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      
+      console.log('Google Play Services available');
+
       // Get users ID token
-      const { idToken } = await GoogleSignin.signIn();
-      
+      console.log('Attempting sign-in...');
+      const { idToken, user } = await GoogleSignin.signIn();
+      console.log('Sign-in successful, user:', user);
+      console.log('ID Token received:', idToken ? 'Yes' : 'No');
+
+      if (!idToken) {
+        throw new Error('No ID token received from Google Sign-In');
+      }
+
       // Create a Google credential with the token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      
+      console.log('Google credential created');
+
       // Sign-in the user with the credential
       const userCredential = await auth().signInWithCredential(googleCredential);
-      
-      console.log('Google Sign-In successful!', userCredential.user);
+      console.log('Firebase sign-in successful!', userCredential.user);
+
       alert('Welcome! 🎉');
-      
+
       // Navigate to home screen
       navigation.navigate('Home');
-      
+
     } catch (error) {
       console.error('Google Sign-In error:', error);
-      
-      if (error.code === 'sign_in_cancelled') {
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         alert('Sign-in cancelled');
-      } else if (error.code === 'in_progress') {
+      } else if (error.code === statusCodes.IN_PROGRESS) {
         alert('Sign-in already in progress');
-      } else if (error.code === 'play_services_not_available') {
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         alert('Play services not available');
+      } else if (error.code === 'DEVELOPER_ERROR') {
+        alert('Developer Error - Check Google Console configuration');
+        console.log('This is a configuration mismatch. Please check:');
+        console.log('1. SHA-1 fingerprint in Google Cloud Console');
+        console.log('2. Package name: com.signin');
+        console.log('3. OAuth client is created for Android');
       } else {
         alert('Google Sign-In failed: ' + error.message);
       }

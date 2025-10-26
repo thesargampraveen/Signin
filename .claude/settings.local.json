@@ -8,7 +8,9 @@
       "Bash(npx react-native run-android:*)",
       "Bash(dir:*)",
       "Bash(.gradlew.bat:*)",
-      "Bash(cmd:*)"
+      "Bash(cmd:*)",
+      "Bash(npx react-native start:*)",
+      "Bash(npx react-native log-android:*)"
     ],
     "deny": [],
     "ask": []
